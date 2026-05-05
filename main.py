@@ -48,9 +48,9 @@ class Planets:
     def go_to(self, planet):
         if planet != self.planet:
             self.planet = planet
-            print("Loaded", base_path + self.planets[self.planet])
+            # print("Loaded", base_path + self.planets[self.planet])
             self.surf = pygame.image.load(base_path + self.planets[self.planet]).convert()
-            print(self.surf.get_size())
+            # print(self.surf.get_size())
         
     def go_to_random(self):
         self.go_to(random.choice(list(self.planets)))
