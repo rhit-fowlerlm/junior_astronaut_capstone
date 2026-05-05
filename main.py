@@ -46,7 +46,7 @@ class Planets:
         self.go_to(self.planet)
         
     def go_to(self, planet):
-        if self.planet is not planet:
+        if planet != self.planet:
             self.planet = planet
             self.surf = pygame.image.load(base_path + self.planets[self.planet]).convert()
         
