@@ -18,61 +18,37 @@ base_path = "/home/space-station/junior_astronaut_capstone"
 
 class Planets:
     def __init__(self):
-        mercury = pygame.image.load(base_path + "/Photos/Mercury.jpg").convert()
-        venus = pygame.image.load(base_path + "/Photos/Venus.jpg").convert()
-        earth = pygame.image.load(base_path + "/Photos/Earth.jpg").convert()
-        mars = pygame.image.load(base_path + "/Photos/Mars.jpg").convert()
-        jupiter = pygame.image.load(base_path + "/Photos/Jupiter.jpg").convert()
-        saturn = pygame.image.load(base_path + "/Photos/Saturn.jpg").convert()
-        uranus = pygame.image.load(base_path + "/Photos/Uranus.jpg").convert()
-        neptune = pygame.image.load(base_path + "/Photos/Neptune.jpg").convert()
         
-        # Minor Planets
-        pluto = pygame.image.load("/Photos/Pluto.jpg").convert()
-        ceres = pygame.image.load(base_path + "/Photos/Ceres.jpg").convert()
-        
-        # Saturn
-        titan = pygame.image.load(base_path + "/Photos/Titan.jpg").convert()
-        enceladus = pygame.image.load(base_path + "/Photos/Enceladus.jpg").convert()
-        
-        # Jupiter
-        io = pygame.image.load(base_path + "/Photos/Io.jpg").convert()
-        ganymede = pygame.image.load(base_path + "/Photos/Ganymede.jpg").convert()
-        callisto = pygame.image.load(base_path + "/Photos/Callisto.jpg").convert()
-        europa = pygame.image.load(base_path + "/Photos/Europa.jpg").convert()
-        
-        # Earth
-        moon = pygame.image.load(base_path + "/Photos/Moon.jpg").convert()
-        
-        self.planets = {"mercury": mercury,
-                        "venus": venus,
-                        "earth": earth,
-                        "mars": mars,
-                        "jupiter": jupiter,
-                        "saturn": saturn,
-                        "uranus": uranus,
-                        "neptune": neptune,
+        self.planets = {"mercury": "/Photos/Mercury.jpg",
+                        "venus": "/Photos/Venus.jpg",
+                        "earth": "/Photos/Earth.jpg",
+                        "mars": "/Photos/Mars.jpg",
+                        "jupiter": "/Photos/Jupiter.jpg",
+                        "saturn": "/Photos/Saturn.jpg",
+                        "uranus": "/Photos/Uranus.jpg",
+                        "neptune": "/Photos/Neptune.jpg",
                         
-                        "pluto": pluto,
-                        "ceres": ceres,
+                        "pluto": "/Photos/Pluto.jpg",
+                        "ceres": "/Photos/Ceres.jpg",
                         
-                        "titan": titan,
-                        "enceladus": enceladus,
+                        "titan": "/Photos/Titan.jpg",
+                        "enceladus": "/Photos/Enceladus.jpg",
                         
-                        "io": io,
-                        "ganymede": ganymede,
-                        "callisto": callisto,
-                        "europa": europa,
+                        "io": "/Photos/Io.jpg",
+                        "ganymede": "/Photos/Ganymede.jpg",
+                        "callisto": "/Photos/Callisto.jpg",
+                        "europa": "/Photos/Europa.jpg",
                         
-                        "moon": moon,}
+                        "moon": "/Photos/Moon.jpg",}
         
         self.planet = "earth"
         self.surf = None
         self.go_to(self.planet)
         
     def go_to(self, planet):
-        self.planet = planet
-        self.surf = self.planets[self.planet]
+        if self.planet is not planet:
+            self.planet = planet
+            self.surf = pygame.image.load(base_path + self.planets[self.planet]).convert()
         
     def go_to_random(self):
         self.go_to(random.choice(list(self.planets)))
@@ -161,7 +137,7 @@ def display_fullscreen(surf):
     
     return surf_scaled, (pos_x, pos_y)
 
-warp = Warp(2, 0.2)
+#warp = Warp(2, 0.2)
 planets = Planets()
 
 while running:
@@ -177,7 +153,8 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                warp.start()
+                planets.go_to_random()
+                #warp.start()
     
     # Fill screen
     screen.fill("black")
@@ -185,14 +162,14 @@ while running:
     scaled_image, pos = display_fullscreen(planets.surf)
     screen.blit(scaled_image, pos)
         
-    if warp.should_switch_background():
-        planets.go_to_random()
-        warp.continue_warp()
+    # if warp.should_switch_background():
+    #     planets.go_to_random()
+    #     warp.continue_warp()
     
-    warp.update(clock.get_time() * 1e-3)
+    # warp.update(clock.get_time() * 1e-3)
     
-    scaled_image, pos = display_fullscreen(warp.surf)
-    screen.blit(scaled_image, pos)
+    # scaled_image, pos = display_fullscreen(warp.surf)
+    # screen.blit(scaled_image, pos)
 
     
     # Hide Mouse
