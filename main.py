@@ -43,7 +43,7 @@ class Planets:
         
         self.planet = ""
         self.surf = None
-        self.go_to(self.planet)
+        self.go_to("earth")
         
     def go_to(self, planet):
         if planet != self.planet:
