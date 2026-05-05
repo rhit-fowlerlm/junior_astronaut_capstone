@@ -16,31 +16,31 @@ t = 0.0
 
 class Planets:
     def __init__(self):
-        mercury = pygame.image.load("/home/space-station/Documents/test/Photos/Mercury.jpg").convert()
-        venus = pygame.image.load("/home/space-station/Documents/test/Photos/Venus.jpg").convert()
-        earth = pygame.image.load("/home/space-station/Documents/test/Photos/Earth.jpg").convert()
-        mars = pygame.image.load("/home/space-station/Documents/test/Photos/Mars.jpg").convert()
-        jupiter = pygame.image.load("/home/space-station/Documents/test/Photos/Jupiter.jpg").convert()
-        saturn = pygame.image.load("/home/space-station/Documents/test/Photos/Saturn.jpg").convert()
-        uranus = pygame.image.load("/home/space-station/Documents/test/Photos/Uranus.jpg").convert()
-        neptune = pygame.image.load("/home/space-station/Documents/test/Photos/Neptune.jpg").convert()
+        mercury = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Mercury.jpg").convert()
+        venus = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Venus.jpg").convert()
+        earth = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Earth.jpg").convert()
+        mars = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Mars.jpg").convert()
+        jupiter = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Jupiter.jpg").convert()
+        saturn = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Saturn.jpg").convert()
+        uranus = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Uranus.jpg").convert()
+        neptune = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Neptune.jpg").convert()
         
         # Minor Planets
-        pluto = pygame.image.load("/home/space-station/Documents/test/Photos/Pluto.jpg").convert()
-        ceres = pygame.image.load("/home/space-station/Documents/test/Photos/Ceres.jpg").convert()
+        pluto = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Pluto.jpg").convert()
+        ceres = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Ceres.jpg").convert()
         
         # Saturn
-        titan = pygame.image.load("/home/space-station/Documents/test/Photos/Titan.jpg").convert()
-        enceladus = pygame.image.load("/home/space-station/Documents/test/Photos/Enceladus.jpg").convert()
+        titan = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Titan.jpg").convert()
+        enceladus = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Enceladus.jpg").convert()
         
         # Jupiter
-        io = pygame.image.load("/home/space-station/Documents/test/Photos/Io.jpg").convert()
-        ganymede = pygame.image.load("/home/space-station/Documents/test/Photos/Ganymede.jpg").convert()
-        callisto = pygame.image.load("/home/space-station/Documents/test/Photos/Callisto.jpg").convert()
-        europa = pygame.image.load("/home/space-station/Documents/test/Photos/Europa.jpg").convert()
+        io = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Io.jpg").convert()
+        ganymede = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Ganymede.jpg").convert()
+        callisto = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Callisto.jpg").convert()
+        europa = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Europa.jpg").convert()
         
         # Earth
-        moon = pygame.image.load("/home/space-station/Documents/test/Photos/Moon.jpg").convert()
+        moon = pygame.image.load("/home/space-station/junior_astronaut_capstone/Photos/Moon.jpg").convert()
         
         self.planets = {"mercury": mercury,
                         "venus": venus,
@@ -94,8 +94,8 @@ class GIF_animation:
 
 class Warp:
     def __init__(self, travel_time, max_speed):
-        self.warp = GIF_animation("/home/space-station/Documents/test/Photos/WarpTrails001_frames", 179)
-        self.warp_sound = pygame.mixer.Sound("/home/space-station/Documents/test/SFX/warp_woosh.wav")
+        self.warp = GIF_animation("/home/space-station/junior_astronaut_capstone/Photos/WarpTrails001_frames", 179)
+        self.warp_sound = pygame.mixer.Sound("/home/space-station/junior_astronaut_capstone/SFX/warp_woosh.wav")
         self.warping = 0
         self.t = 0
         self.travel_time = travel_time
