@@ -74,7 +74,7 @@ class GIF_animation:
 
 class Warp:
     def __init__(self, travel_time, max_speed):
-        self.warp = GIF_animation(base_path + "/Photos/WarpTrails001_frames", 179)
+        self.warp = GIF_animation(base_path + "/Photos/WarpTrails001_frames", 1) #179)
         self.warp_sound = pygame.mixer.Sound(base_path + "/SFX/warp_woosh.wav")
         self.warping = 0
         self.t = 0
@@ -139,7 +139,7 @@ def display_fullscreen(surf):
     
     return surf_scaled, (pos_x, pos_y)
 
-#warp = Warp(2, 0.2)
+warp = Warp(2, 0.2)
 planets = Planets()
 
 while running:
@@ -155,8 +155,8 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                planets.go_to_random()
-                #warp.start()
+                # planets.go_to_random()
+                warp.start()
     
     # Fill screen
     screen.fill("black")
@@ -164,14 +164,14 @@ while running:
     scaled_image, pos = display_fullscreen(planets.surf)
     screen.blit(scaled_image, pos)
         
-    # if warp.should_switch_background():
-    #     planets.go_to_random()
-    #     warp.continue_warp()
+    if warp.should_switch_background():
+        planets.go_to_random()
+        warp.continue_warp()
     
-    # warp.update(clock.get_time() * 1e-3)
+    warp.update(clock.get_time() * 1e-4)
     
-    # scaled_image, pos = display_fullscreen(warp.surf)
-    # screen.blit(scaled_image, pos)
+    scaled_image, pos = display_fullscreen(warp.surf)
+    screen.blit(scaled_image, pos)
 
     
     # Hide Mouse
