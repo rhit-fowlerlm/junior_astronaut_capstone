@@ -41,7 +41,7 @@ class Planets:
                         
                         "moon": "/Photos/Moon.jpg",}
         
-        self.planet = "earth"
+        self.planet = ""
         self.surf = None
         self.go_to(self.planet)
         
