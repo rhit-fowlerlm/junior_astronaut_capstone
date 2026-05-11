@@ -6,7 +6,7 @@ import os
 class Planets:
     def __init__(self, photos_folder_path):
         
-        self.planets = {"mercury": "Mercury.jpg",
+        planets_file = {"mercury": "Mercury.jpg",
                         "venus": "Venus.jpg",
                         "earth": "Earth.jpg",
                         "mars": "Mars.jpg",
@@ -28,22 +28,15 @@ class Planets:
                         
                         "moon": "Moon.jpg",}
         
-        for key in self.planets:
-            self.planets[key] = os.path.join(photos_folder_path, self.planets[key])
+        self.__planets = dict()
         
-        self.planet:str = ""
-        self.surf:pygame.Surface = None
-        self.go_to("earth")
-        
-    def go_to(self, planet:str):
-        if planet != self.planet:
-            self.planet = planet
-            # print("Loaded", base_path + self.planets[self.planet])
-            self.surf = pygame.image.load(self.planets[self.planet]).convert()
-            # print(self.sur  f.get_size())
+        for key in planets_file:
+            path = os.path.join(photos_folder_path, planets_file[key])
+            self.__planets[key] = pygame.image.load(path).convert()
+    
         
     def go_to_random(self):
-        self.go_to(random.choice(list(self.planets)))
+        self.go_to(random.choice(list(self.__planets)))
 
-    def display(self, screen:pygame.Surface, x:float, y:float, scale:float):
-        display_fullscreen(self.surf, screen, x, y, scale)
+    def display(self, screen:pygame.Surface, planet:str, x:float, y:float, scale:float):
+        display_fullscreen(self.__planets[planet], screen, x, y, scale)

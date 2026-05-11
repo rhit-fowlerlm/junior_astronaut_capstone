@@ -1,10 +1,12 @@
 import pygame
 import numpy as np
 import random
-from planet_images import Planets
-from warp import Warp
 import os
 import platform
+from planet_images import Planets
+from warp import Warp
+from inputs import Inputs
+
 
 SHOULD_FULLSCREEN = True
 
@@ -25,6 +27,9 @@ if platform.system() == "Windows":
 
 warp = Warp(os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
 planets = Planets(os.path.join(base_path, "Photos"))
+inputs = Inputs()
+
+p = "earth"
 
 while running:
     # Update current time
@@ -33,23 +38,37 @@ while running:
         # If quit button pressed, quit game
         if event.type == pygame.QUIT:
             running = False
+
+        inputs.joystick.x = 0
+        inputs.joystick.y = 0
+        inputs.joystick.z = 0
         
         # If escape button pressed, quit game
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                # planets.go_to_random()
                 warp.start()
-                pass
+            if event.key == pygame.K_UP:
+                inputs.joystick.y += 1
+            if event.key == pygame.K_DOWN:
+                inputs.joystick.y -= 1
+            if event.key == pygame.K_RIGHT:
+                inputs.joystick.x += 1
+            if event.key == pygame.K_LEFT:
+                inputs.joystick.x -= 1
+            if event.key == pygame.K_PAGEUP:
+                inputs.joystick.z += 1
+            if event.key == pygame.K_PAGEDOWN:
+                inputs.joystick.z -= 1
     
     # Fill screen
     screen.fill("black")
 
-    planets.display(screen, 0, 0, 1)
+    planets.display(screen, p, 0, 0, 1)
         
     if warp.should_switch_background():
-        planets.go_to_random()
+        p = "mars"
         warp.continue_warp()
     
     warp.update(screen, clock.get_time() * 1e-3)
