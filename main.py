@@ -5,6 +5,8 @@ import os
 import platform
 from planet_images import Planets
 from warp import Warp
+
+from spacecraft import Spacecraft
 from inputs import Inputs
 
 
@@ -25,8 +27,7 @@ if platform.system() == "Linux":
 if platform.system() == "Windows":
     base_path = "C:\\Users\\fowlerlm\\OneDrive - Rose-Hulman Institute of Technology\\Documents\\_Capstone\\Code\\junior_astronaut_capstone\\"
 
-warp = Warp(os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
-planets = Planets(os.path.join(base_path, "Photos"))
+spacecraft = Spacecraft(os.path.join(base_path, "Photos"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
 inputs = Inputs()
 
 p = "earth"
@@ -34,6 +35,8 @@ p = "earth"
 while running:
     # Update current time
     # poll for events
+    tick = clock.get_time() * 1e-3
+
     for event in pygame.event.get():
         # If quit button pressed, quit game
         if event.type == pygame.QUIT:
@@ -48,7 +51,8 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                warp.start()
+                # warp.start()
+                pass
             if event.key == pygame.K_UP:
                 inputs.joystick.y += 1
             if event.key == pygame.K_DOWN:
@@ -65,13 +69,15 @@ while running:
     # Fill screen
     screen.fill("black")
 
-    planets.display(screen, p, 0, 0, 1)
+    spacecraft.update(screen, inputs.joystick, tick)
+
+    # planets.display(screen, p, 0, 0, 1)
         
-    if warp.should_switch_background():
-        p = "mars"
-        warp.continue_warp()
+    # if warp.should_switch_background():
+    #     p = "mars"
+    #     warp.continue_warp()
     
-    warp.update(screen, clock.get_time() * 1e-3)
+    # warp.update(screen, clock.get_time() * 1e-3)
 
     
     # Hide Mouse
