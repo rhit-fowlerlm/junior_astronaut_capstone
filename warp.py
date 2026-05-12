@@ -64,9 +64,6 @@ class Warp:
                     self.__warping = 2
             if self.__warping == 3:
                 if self.__t > self.__travel_time:
-                    self.__warping = 4
-            if self.__warping == 4:
-                if self.__t > self.__warp_sound.get_length():
                     self.__warping = 0
         
         display_fullscreen(self.__surf, screen, 0, 0, 1)
