@@ -15,11 +15,11 @@ class Asteroid:
             path = os.path.join(asteroid_folder_path, filename)
             self.__asteroids.append(pygame.image.load(path).convert_alpha())
 
-        self.angle_range_deg = 60
+        self.angle_range_deg = 30
         self.speed_min = 0.1
         self.speed_max = 0.5
-        self.scale_min = 0.01
-        self.scale_max = 0.05
+        self.scale_min = 0.05
+        self.scale_max = 0.1
 
         self.asteroid_idx = 0
         self.x = 0
@@ -34,11 +34,9 @@ class Asteroid:
         if not self.is_moving:
             self.is_moving = True
             angle = np.random.uniform(2*np.pi)
-            scale = 1
-            while scale*abs(np.cos(angle)) > 0.5 and scale*abs(np.sin(angle)) > 0.5:
-                scale -= 0.01
-            self.x = scale*np.cos(angle)
-            self.y = scale*np.sin(angle)
+            
+            self.x = np.cos(angle)
+            self.y = np.sin(angle)
 
             speed = np.random.uniform(self.speed_min, self.speed_max)
             speed_angle = angle + np.deg2rad(np.random.uniform(-self.angle_range_deg/2, self.angle_range_deg/2))
@@ -51,8 +49,14 @@ class Asteroid:
 
             self.asteroid_idx = np.random.randint(len(self.__asteroids))
 
+            
+
     def update(self, screen:pygame.Surface, tick:float):
         ws, hs = screen.get_size()
+
+        while abs(self.x) > 0.55 and abs(self.y) > 0.55 * hs/ws:
+            self.x += self.vx * 1e-4
+            self.y += self.vy * 1e-4
 
         self.x += self.vx * tick
         self.y += self.vy * tick
