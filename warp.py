@@ -31,7 +31,7 @@ class Warp:
         
     def start(self):
         if self.__warping == 0:
-            self.__warp_sound.play()
+            self.__warp_sound.play(maxtime=self.__travel_time*1000, fade_ms=50)
             self.__t = 0
             self.__warping = 1
         

@@ -16,7 +16,7 @@ class PlanetEncoderInput:
 
 class AudioInput:
     def __init__(self):
-        self.audio = []
+        self.audio_cmds:list[str] = []
 
 class Inputs:
     def __init__(self):
@@ -33,12 +33,15 @@ class Inputs:
 
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
+        self.audio = AudioInput()
 
     def update(self):
         lines = self.__ser.readlines()
         for line in lines:
             self.__read_command(line)
             print(line)
+
+        self.audio.audio_cmds = []
 
         # Joystick timeout
         t_since_update = (datetime.now() - self.joystick.timestamp).total_seconds()
@@ -63,6 +66,9 @@ class Inputs:
                 if p in cmd.lower():
                     self.planet_encoder.planet = i
                     self.planet_encoder.update_flag = True
+        
+        if cmd.startswith("SFX"):
+            self.audio.audio_cmds.append(cmd)
         
 
 if __name__ == "__main__":
