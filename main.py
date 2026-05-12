@@ -3,8 +3,8 @@ import numpy as np
 import random
 import os
 import platform
-from planet_images import Planets
-from warp import Warp
+
+from display_utils import smooth_screen
 
 from spacecraft import Spacecraft
 from inputs import Inputs
@@ -71,13 +71,7 @@ while running:
 
     spacecraft.update(screen, inputs.joystick, tick)
 
-    # planets.display(screen, p, 0, 0, 1)
-        
-    # if warp.should_switch_background():
-    #     p = "mars"
-    #     warp.continue_warp()
-    
-    # warp.update(screen, clock.get_time() * 1e-3)
+    smooth_screen(screen, 1)
 
     
     # Hide Mouse
