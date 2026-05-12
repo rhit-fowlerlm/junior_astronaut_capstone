@@ -4,7 +4,7 @@ import random
 import os
 import platform
 
-from display_utils import smooth_screen
+# from display_utils import smooth_screen
 
 from spacecraft import Spacecraft
 from inputs import Inputs
