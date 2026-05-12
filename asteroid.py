@@ -53,10 +53,10 @@ class Asteroid:
 
     def update(self, screen:pygame.Surface, tick:float):
         ws, hs = screen.get_size()
-
+        
         while abs(self.x) > 0.5 + self.scale and abs(self.y) > 0.5 * hs/ws + self.scale:
-            self.x += self.vx * 1e-4
-            self.y += self.vy * 1e-4
+            self.x += self.vx * 0.01 / np.sqrt(self.vx*self.vx + self.vy*self.vy)
+            self.y += self.vy * 0.01 / np.sqrt(self.vx*self.vx + self.vy*self.vy)
 
         self.x += self.vx * tick
         self.y += self.vy * tick
