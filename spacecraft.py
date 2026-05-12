@@ -18,30 +18,36 @@ class Spacecraft:
         self.curr_planet_idx = 2
         self.planet_names = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
 
-        self.R = 1
+        self.R = 0.1
         self.k = 0.2
 
     def update(self, screen:pygame.Surface, joystick:JoystickInput, tick:float):
-        dx = -joystick.x - self.k * self.x / self.z
-        dy =  joystick.y - self.k * self.y / self.z
-        dz =  joystick.z - self.k * (self.z - 1)
+        if not self.__warp.is_warping():
+            dx = -joystick.x - self.k * self.x / self.z
+            dy =  joystick.y - self.k * self.y / self.z
+            dz =  joystick.z - self.k * (self.z - 1)
 
 
-        self.x += dx * self.speed_xy * tick / self.z
-        self.y += dy * self.speed_xy * tick / self.z
-        self.z += dz * self.speed_z * tick
+            self.x += dx * self.speed_xy * tick / self.z
+            self.y += dy * self.speed_xy * tick / self.z
+            self.z += dz * self.speed_z * tick
 
-        self.x = np.clip(self.x, -1.5, 1.5)
-        self.y = np.clip(self.y, -1.5, 1.5)
-        self.z = np.clip(self.z, 0.1, 10)
+            self.x = np.clip(self.x, -1.5, 1.5)
+            self.y = np.clip(self.y, -1.5, 1.5)
+            self.z = np.clip(self.z, 0.1, 10)
 
-        d = (self.x*self.x + self.y*self.y)*self.z
-        
-        if d > self.R:
+            d = (self.x*self.x + self.y*self.y)*self.z
+            
+            if d > self.R:
+                self.__warp.start()
+                
+
+        if self.__warp.should_switch_background():
             self.change_planets()
             self.x = 0
             self.y = 0
             self.z = 1
+            self.__warp.continue_warp()
             
 
         self.__planets.display(screen, self.planet_names[self.curr_planet_idx], self.x, self.y, self.z)
