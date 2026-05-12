@@ -1,12 +1,18 @@
 from serial.tools.list_ports import comports
 import serial
-import re
+from datetime import datetime
 
 class JoystickInput:
     def __init__(self):
         self.x = 0
         self.y = 0
         self.z = 0
+        self.timestamp:datetime = 0
+
+class PlanetEncoderInput:
+    def __init__(self):
+        self.planet = 2
+        self.update_flag = False
 
 class Inputs:
     def __init__(self):
@@ -22,12 +28,20 @@ class Inputs:
         self.__ser = serial.Serial(device)
 
         self.joystick = JoystickInput()
+        self.planet_encoder = PlanetEncoderInput()
 
     def update(self):
         lines = self.__ser.readlines()
         for line in lines:
             self.__read_command(line)
             print(line)
+
+        # Joystick timeout
+        t_since_update = (datetime.now() - self.joystick.timestamp).total_seconds()
+        if t_since_update > 1:
+            self.joystick.x = 0
+            self.joystick.y = 0
+            self.joystick.z = 0
 
     def close(self):
         self.__ser.close()
@@ -37,6 +51,14 @@ class Inputs:
             self.joystick.x = ("X+" in cmd) - ("X-" in cmd)
             self.joystick.y = ("Y+" in cmd) - ("Y-" in cmd)
             self.joystick.z = ("Z+" in cmd) - ("Z-" in cmd)
+            self.joystick.timestamp = datetime.now()
+
+        if cmd.startswith("PLANET"):
+            planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
+            for i, p in enumerate(planets):
+                if p in cmd.lower():
+                    self.planet_encoder.planet = i
+                    self.planet_encoder.update_flag = True
         
 
 if __name__ == "__main__":

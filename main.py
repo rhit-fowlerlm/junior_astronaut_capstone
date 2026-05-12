@@ -6,6 +6,7 @@ import platform
 
 from spacecraft import Spacecraft
 from inputs import Inputs
+from asteroid import Asteroid
 
 
 SHOULD_FULLSCREEN = True
@@ -25,7 +26,8 @@ if platform.system() == "Linux":
 if platform.system() == "Windows":
     base_path = "C:\\Users\\fowlerlm\\OneDrive - Rose-Hulman Institute of Technology\\Documents\\_Capstone\\Code\\junior_astronaut_capstone\\"
 
-spacecraft = Spacecraft(os.path.join(base_path, "Photos"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
+spacecraft = Spacecraft(os.path.join(base_path, "Photos", "Planets"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
+asteroid = Asteroid(os.path.join(base_path, "Photos", "Asteroids"))
 inputs = Inputs()
 
 p = "earth"
@@ -50,6 +52,7 @@ while running:
                 running = False
             if event.key == pygame.K_SPACE:
                 # warp.start()
+                asteroid.start()
                 pass
             if event.key == pygame.K_UP:
                 inputs.joystick.y += 1
@@ -63,11 +66,18 @@ while running:
                 inputs.joystick.z += 1
             if event.key == pygame.K_PAGEDOWN:
                 inputs.joystick.z -= 1
+
+
+    if inputs.planet_encoder.update_flag:
+        spacecraft.set_planet(inputs.planet_encoder.planet)
+        inputs.planet_encoder.update_flag = False
     
     # Fill screen
     screen.fill("black")
 
     spacecraft.update(screen, inputs.joystick, tick)
+
+    asteroid.update(screen, tick)
 
     #smooth_screen(screen, 1)
 

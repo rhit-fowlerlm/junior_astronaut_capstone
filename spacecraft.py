@@ -16,10 +16,14 @@ class Spacecraft:
         self.speed_xy = 1e-1
         self.speed_z = 1e-1
         self.curr_planet_idx = 2
+        self.target_planet_idx = 2
         self.planet_names = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
 
         self.R = 0.1
         self.k = 0.2
+
+    def set_planet(self, target_planet_idx):
+        self.target_planet_idx = target_planet_idx
 
     def update(self, screen:pygame.Surface, joystick:JoystickInput, tick:float):
         if not self.__warp.is_warping():
@@ -36,14 +40,17 @@ class Spacecraft:
             self.y = np.clip(self.y, -1.5, 1.5)
             self.z = np.clip(self.z, 0.1, 10)
 
-            d = (self.x*self.x + self.y*self.y)*self.z
-            
-            if d > self.R:
-                self.__warp.start()
+        d = (self.x*self.x + self.y*self.y)*self.z
+        
+        if d > self.R:
+            self.change_planets_out_of_bounds()
+
+        if self.curr_planet_idx != self.target_planet_idx and not self.__warp.is_warping():
+            self.__warp.start()
                 
 
         if self.__warp.should_switch_background():
-            self.change_planets()
+            self.curr_planet_idx = self.target_planet_idx
             self.x = 0
             self.y = 0
             self.z = 1
@@ -53,7 +60,7 @@ class Spacecraft:
         self.__planets.display(screen, self.planet_names[self.curr_planet_idx], self.x, self.y, self.z)
         self.__warp.update(screen, tick)
 
-    def change_planets(self):
+    def change_planets_out_of_bounds(self):
         
         if self.curr_planet_idx == 0:
             self.curr_planet_idx += 1
@@ -66,9 +73,9 @@ class Spacecraft:
         cos_prev = self.get_cos_from_vector_to_planet(self.curr_planet_idx-1)
         
         if cos_next > cos_prev:
-            self.curr_planet_idx += 1
+            self.target_planet_idx = self.curr_planet_idx + 1
         else:
-            self.curr_planet_idx -= 1
+            self.target_planet_idx = self.curr_planet_idx - 1
 
     def get_cos_from_vector_to_planet(self, planet_idx:int):
         positions = self.__planet_orbits.get_planet_positions()
