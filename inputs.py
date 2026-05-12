@@ -14,6 +14,10 @@ class PlanetEncoderInput:
         self.planet = 2
         self.update_flag = False
 
+class AudioInput:
+    def __init__(self):
+        self.audio = []
+
 class Inputs:
     def __init__(self):
         ports = comports(include_links=True)

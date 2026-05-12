@@ -26,8 +26,8 @@ if platform.system() == "Linux":
 if platform.system() == "Windows":
     base_path = "C:\\Users\\fowlerlm\\OneDrive - Rose-Hulman Institute of Technology\\Documents\\_Capstone\\Code\\junior_astronaut_capstone\\"
 
-spacecraft = Spacecraft(os.path.join(base_path, "Photos", "Planets"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "warp_woosh.wav"), 2, 0.2)
-asteroid = Asteroid(os.path.join(base_path, "Photos", "Asteroids"))
+spacecraft = Spacecraft(os.path.join(base_path, "Photos", "Planets"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "SFX", "Sounds", "warp_woosh.wav"), 2, 0.2)
+asteroid = Asteroid(os.path.join(base_path, "Photos", "Asteroids"), ["Asteroid1.png"])
 inputs = Inputs()
 
 p = "earth"

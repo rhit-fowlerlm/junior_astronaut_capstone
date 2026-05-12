@@ -19,9 +19,9 @@ class AsteroidData:
         self.is_moving = False
 
 class Asteroid:
-    def __init__(self, asteroid_folder_path):
+    def __init__(self, asteroid_folder_path, filenames):
         
-        asteroid_files = ["Asteroid1.png"]
+        asteroid_files = filenames
 
         self.__asteroids = []
         
