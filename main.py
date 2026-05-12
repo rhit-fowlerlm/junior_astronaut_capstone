@@ -71,7 +71,7 @@ while running:
 
     spacecraft.update(screen, inputs.joystick, tick)
 
-    smooth_screen(screen, 1)
+    #smooth_screen(screen, 1)
 
     
     # Hide Mouse
