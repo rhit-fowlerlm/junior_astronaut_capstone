@@ -36,10 +36,8 @@ class SFXOxygenTank:
         return self.__o2_stir.get_num_channels() > 0 or self.__houston.get_num_channels() > 0 or self.__boom.get_num_channels() > 0
 
     def stir(self):
-        print("STIR")
         if self.playing():
             return
-        print("STIR")
         self.__stirring = True
         self.__o2_stir.play(maxtime=self.__stir_duration*1000, fade_ms=50)
 
@@ -149,28 +147,35 @@ class Soundboard:
         special_historical_path = os.path.join(sounds_folder, "Special_Historical")
         quindar_path = os.path.join(sounds_folder, "Quindar")
         sfx_path = os.path.join(sounds_folder, "SFX")
+        sci_fi_path = os.path.join(sounds_folder, "SciFi_Sounds")
 
         self.__launch = SFXLaunch(os.path.join(special_historical_path, "Ap16_launch_trim.wav"))
-        self.__random_historical = SFXRandom(general_historical_path, ["Aurora-7_Guyamas-Greeting.mp3", "Aurora-7_Guyamas-Greeting.mp3", "Discovery_-_Lookin_At_It.mp3.ogg", "Discovery_-_Press_to_ATO.mp3.ogg", "Mercury_6_-_Zero_G.mp3.ogg"])
+        self.__random_historical = SFXRandom(general_historical_path, os.listdir(general_historical_path))
+        self.__random_sci_fi = SFXRandom(sci_fi_path, os.listdir(sci_fi_path))
         self.__quindar = QuindarTones(quindar_path)
         self.__stir = SFXOxygenTank(sfx_path, special_historical_path)
         self.__thruster = SFXThruster(sfx_path)
         self.__data_upload = SFXDataUpload(sfx_path)
 
     def random_historical(self):
-        if not self.__launch.playing() and not self.__stir.playing():
+        if not self.__launch.playing() and not self.__stir.playing() and self.__random_sci_fi.playing():
             self.__random_historical.play()
+
+    def random_scifi(self):
+        if not self.__launch.playing() and not self.__stir.playing() and not self.__random_historical.playing():
+            self.__random_sci_fi.play()
 
     def launch(self):
         self.__random_historical.stop()
         self.__stir.stop()
+        self.__random_sci_fi.stop()
         self.__launch.start_launch()
 
     def abort_launch(self):
         self.__launch.abort_launch()
 
     def stir(self):
-        if not self.__launch.playing() and not self.__random_historical.playing():
+        if not self.__launch.playing() and not self.__random_historical.playing() and self.__random_sci_fi.playing():
             self.__stir.stir()
 
     def data1(self):
@@ -197,6 +202,8 @@ class Soundboard:
             self.stir()
         if "RANDOM_HISTORICAL" in cmd:
             self.random_historical()
+        if "RANDOM_SCIFI" in cmd:
+            self.random_scifi()
         if "DATA_1" in cmd:
             self.data1()
         if "DATA_2" in cmd:

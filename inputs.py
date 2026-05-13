@@ -45,7 +45,9 @@ class Inputs:
         if device is None:
             print("ERROR: No arduino found", len(ports), "ports seen")
         
-        self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
+        self.__ser = None
+        if device is not None:
+            self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
 
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
@@ -58,9 +60,10 @@ class Inputs:
         self.asteroid.destroy = False
         self.asteroid.super_destroy = False
 
-        while self.__ser.in_waiting:
-            line = self.__ser.readline().decode('utf-8', errors='ignore')
-            self.__read_command(line)
+        if self.__ser is not None:
+            while self.__ser.in_waiting:
+                line = self.__ser.readline().decode('utf-8', errors='ignore')
+                self.__read_command(line)
 
         
 
@@ -72,7 +75,8 @@ class Inputs:
             self.joystick.z = 0
 
     def close(self):
-        self.__ser.close()
+        if self.__ser is not None:
+            self.__ser.close()
 
     def __read_command(self, cmd:str):
         if cmd.startswith("JOYSTICK"):

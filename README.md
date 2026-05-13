@@ -4,6 +4,7 @@
 https://commons.wikimedia.org/wiki/File:WarpTrails001.gif
 https://www.pngarts.com/explore/262193
 https://opengameart.org/content/explosion-alpha
+https://opengameart.org/content/asteroids
 
 # Audio
 ## Sound Effects
@@ -16,6 +17,11 @@ StirOxygen:https://pixabay.com/sound-effects/technology-motor3-58848/
 MetalPipe:https://pixabay.com/sound-effects/film-special-effects-metal-pipe-329305/
 RippleAllLights:https://pixabay.com/sound-effects/film-special-effects-sci-fi-weapon-charging-01-96645/
 https://opengameart.org/content/mechanical-explosion
+https://opengameart.org/content/space-shoot-sounds
+https://opengameart.org/content/starship-take-off
+https://opengameart.org/content/space-ships-sounds-and-background-music
+https://opengameart.org/content/9-explosion-sounds
+
 
 ## Historical Sounds
 https://commons.wikimedia.org/wiki/File:Quindar_Opening.ogg

@@ -23,9 +23,9 @@ class AsteroidData:
         self.explosion_start:datetime = datetime.now()
 
 class Asteroid:
-    def __init__(self, asteroid_folder_path, explosion_folder_path, filenames):
+    def __init__(self, asteroid_folder_path, explosion_folder_path):
         
-        asteroid_files = filenames
+        asteroid_files = os.listdir(asteroid_folder_path)
 
         self.__asteroids = []
         
