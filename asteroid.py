@@ -111,8 +111,8 @@ class Asteroid:
                     display_fullscreen(asteroid, screen, astr.x, astr.y, astr.scale)
                 else:
                     dt = (datetime.now() - astr.explosion_start).total_seconds()
-                    frame = np.floor(self.__explosion_frames * dt / self.__explosion_duration)
-                    if frame < self.__explosion_frames:
+                    frame = np.floor(self.__num_explosion_frames * dt / self.__explosion_duration)
+                    if frame < self.__num_explosion_frames:
                         display_fullscreen(self.__explosion_frames[frame], screen, astr.x, astr.y, astr.scale)
 
 
