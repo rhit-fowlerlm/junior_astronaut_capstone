@@ -45,13 +45,14 @@ class Inputs:
         self.planet_encoder = PlanetEncoderInput()
         self.audio = AudioInput()
 
-    def update(self):       
+    def update(self):
+        self.audio.audio_cmds = []
+
         while self.__ser.in_waiting:
             line = self.__ser.readline().decode('utf-8', errors='ignore')
             self.__read_command(line)
-            print(line)
 
-        self.audio.audio_cmds = []
+        
 
         # Joystick timeout
         t_since_update = (datetime.now() - self.joystick.timestamp).total_seconds()
