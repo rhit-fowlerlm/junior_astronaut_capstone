@@ -47,15 +47,6 @@ class Asteroid:
             self.__explosion_frames.append(pygame.image.load(os.path.join(explosion_folder_path, f"{i}.png")).convert())
         self.__explosion_duration = 0.5
 
-    def update(self, inputs:AsteroidInput):
-        if inputs.create:
-            self.create()
-        if inputs.destroy():
-            self.destroy()
-        if inputs.super_destroy():
-            self.destroy_all()
-        
-
     def create(self):
         new_asteroid = AsteroidData()
         new_asteroid.is_moving = True
@@ -87,7 +78,14 @@ class Asteroid:
             self.__asteroid_datas[i].is_exploding = True
             self.__asteroid_datas[i].explosion_start = datetime.now()
 
-    def update(self, screen:pygame.Surface, tick:float):
+    def update(self, screen:pygame.Surface, tick:float, inputs:AsteroidInput):
+        if inputs.create:
+            self.create()
+        if inputs.destroy():
+            self.destroy()
+        if inputs.super_destroy():
+            self.destroy_all()
+
         ws, hs = screen.get_size()
         for i in range(len(self.__asteroid_datas)):
             astr = self.__asteroid_datas[i]
