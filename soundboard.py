@@ -140,7 +140,7 @@ class SFXDataUpload:
 
     def play_path_send(self):
         if self.__path_send.get_num_channels() == 0:
-            self.__path_send.play(self.__send_max_time*1000)
+            self.__path_send.play(maxtime=self.__send_max_time*1000)
 
 class Soundboard:
     def __init__(self, sounds_folder):
