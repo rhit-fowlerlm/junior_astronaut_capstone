@@ -11,7 +11,7 @@ from soundboard import Soundboard
 
 
 SHOULD_FULLSCREEN = True
-
+pygame.mixer.pre_init(buffer=4096)
 pygame.init()
 if SHOULD_FULLSCREEN:
     screen = pygame.display.set_mode((0, 0), flags = pygame.FULLSCREEN)
