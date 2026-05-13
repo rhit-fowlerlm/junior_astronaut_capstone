@@ -7,7 +7,7 @@ class JoystickInput:
         self.x = 0
         self.y = 0
         self.z = 0
-        self.timestamp:datetime = 0
+        self.timestamp:datetime = datetime.now()
 
 class PlanetEncoderInput:
     def __init__(self):
