@@ -39,7 +39,7 @@ class Inputs:
         if device is None:
             print("ERROR: No arduino found", len(ports), "ports seen")
         
-        self.__ser = serial.Serial(device, baudrate=9600, timeout=0.01)
+        self.__ser = serial.Serial(device, baudrate=9600, timeout=0)
 
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
@@ -48,9 +48,9 @@ class Inputs:
     def update(self):
         self.audio.audio_cmds = []
 
-        while self.__ser.in_waiting:
-            line = self.__ser.readline().decode('utf-8', errors='ignore')
-            self.__read_command(line)
+        # while self.__ser.in_waiting:
+        #     line = self.__ser.readline().decode('utf-8', errors='ignore')
+        #     self.__read_command(line)
 
         
 
