@@ -3,7 +3,7 @@
 ## Art
 https://commons.wikimedia.org/wiki/File:WarpTrails001.gif
 https://www.pngarts.com/explore/262193
-
+https://opengameart.org/content/explosion-alpha
 
 # Audio
 ## Sound Effects

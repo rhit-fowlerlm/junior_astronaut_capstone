@@ -18,6 +18,12 @@ class AudioInput:
     def __init__(self):
         self.audio_cmds:list[str] = []
 
+class AsteroidInput:
+    def __init__(self):
+        self.create = False
+        self.destroy = False
+        self.super_destroy = False
+
 class Inputs:
     def __init__(self):
         ports = comports(include_links=True)
@@ -44,6 +50,7 @@ class Inputs:
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
         self.audio = AudioInput()
+        self.asteroid = AsteroidInput()
 
     def update(self):
         self.audio.audio_cmds = []
@@ -80,3 +87,13 @@ class Inputs:
         
         if cmd.startswith("SFX"):
             self.audio.audio_cmds.append(cmd)
+
+        if cmd.startswith("ASTEROID"):
+            if "CREATE" in cmd:
+                self.asteroid.create = False
+            if "SINGLE_DESTROY" in cmd:
+                self.asteroid.destroy = False
+            if "SUPER_DESTROY" in cmd:
+                self.asteroid.super_destroy = False
+
+        

@@ -59,7 +59,7 @@ while running:
                 running = False
             if event.key == pygame.K_SPACE:
                 # warp.start()
-                asteroid.start()
+                asteroid.create()
                 inputs.audio.audio_cmds.append("SFX STIR")
                 pass
             if event.key == pygame.K_UP:

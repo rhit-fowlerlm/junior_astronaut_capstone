@@ -1,5 +1,22 @@
 import pygame
+import os
 # from scipy.ndimage import gaussian_filter
+
+class GIF_animation:
+    def __init__(self, path, num_frames):
+        self.__frames = []
+        for i in range(num_frames):
+            self.__frames.append(pygame.image.load(os.path.join(path, f"{i}.png")).convert())
+        self.__i = 0
+    
+    def update(self, speed, tick):
+        self.__i += speed * len(self.__frames) * tick
+        self.__i %= len(self.__frames)
+        
+    def get_surf(self):
+        i = round(self.__i)
+        i %= len(self.__frames)
+        return self.__frames[i]
 
 def display_fullscreen(surf:pygame.Surface, screen:pygame.Surface, x:float, y:float, scale:float):
         w, h = surf.get_size()

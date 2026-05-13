@@ -1,8 +1,10 @@
 import pygame
 import random
 import numpy as np
-from display_utils import display_fullscreen
+from display_utils import display_fullscreen, GIF_animation
 import os
+from datetime import datetime
+from inputs import AsteroidInput
 
 
 class AsteroidData:
@@ -17,9 +19,11 @@ class AsteroidData:
         self.rotation_angle = 0
         self.scale = 0.01
         self.is_moving = False
+        self.is_exploding = False
+        self.explosion_start:datetime = datetime.now()
 
 class Asteroid:
-    def __init__(self, asteroid_folder_path, filenames):
+    def __init__(self, asteroid_folder_path, explosion_folder_path, filenames):
         
         asteroid_files = filenames
 
@@ -37,8 +41,22 @@ class Asteroid:
 
         self.__asteroid_datas:list[AsteroidData] = []
         
+        self.__explosion_frames = []
+        self.__num_explosion_frames = 16
+        for i in range(self.__num_explosion_frames):
+            self.__explosion_frames.append(pygame.image.load(os.path.join(explosion_folder_path, f"{i}.png")).convert())
+        self.__explosion_duration = 0.5
 
-    def start(self):
+    def update(self, inputs:AsteroidInput):
+        if inputs.create:
+            self.create()
+        if inputs.destroy():
+            self.destroy()
+        if inputs.super_destroy():
+            self.destroy_all()
+        
+
+    def create(self):
         new_asteroid = AsteroidData()
         new_asteroid.is_moving = True
         angle = np.random.uniform(2*np.pi)
@@ -59,7 +77,15 @@ class Asteroid:
 
         self.__asteroid_datas.append(new_asteroid)
 
-            
+    def destroy(self):
+        i = random.randint(len(self.__asteroid_datas))
+        self.__asteroid_datas[i].is_exploding = True
+        self.__asteroid_datas[i].explosion_start = datetime.now()
+
+    def destroy_all(self):
+        for i in range(len(self.__asteroid_datas)):
+            self.__asteroid_datas[i].is_exploding = True
+            self.__asteroid_datas[i].explosion_start = datetime.now()
 
     def update(self, screen:pygame.Surface, tick:float):
         ws, hs = screen.get_size()
@@ -81,8 +107,15 @@ class Asteroid:
                 astr.is_moving = False
 
             if astr.is_moving:
-                asteroid = pygame.transform.rotate(self.__asteroids[astr.asteroid_idx], np.rad2deg(astr.rotation_angle))
-                display_fullscreen(asteroid, screen, astr.x, astr.y, astr.scale)
+                if not astr.is_exploding:
+                    asteroid = pygame.transform.rotate(self.__asteroids[astr.asteroid_idx], np.rad2deg(astr.rotation_angle))
+                    display_fullscreen(asteroid, screen, astr.x, astr.y, astr.scale)
+                else:
+                    dt = (datetime.now() - astr.explosion_start).total_seconds()
+                    frame = np.floor(self.__explosion_frames * dt / self.__explosion_duration)
+                    if frame < self.__explosion_frames:
+                        display_fullscreen(self.__explosion_frames[frame], screen, astr.x, astr.y, astr.scale)
+
 
         new_aster_array = []
 

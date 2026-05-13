@@ -1,23 +1,7 @@
 import pygame
-from display_utils import display_fullscreen
+from display_utils import display_fullscreen, GIF_animation
 import numpy as np
 import os
-
-class GIF_animation:
-    def __init__(self, path, num_frames):
-        self.__frames = []
-        for i in range(num_frames):
-            self.__frames.append(pygame.image.load(os.path.join(path, f"{i}.png")).convert())
-        self.__i = 0
-    
-    def update(self, speed, tick):
-        self.__i += speed * len(self.__frames) * tick
-        self.__i %= len(self.__frames)
-        
-    def get_surf(self):
-        i = round(self.__i)
-        i %= len(self.__frames)
-        return self.__frames[i]
 
 class Warp:
     def __init__(self, warp_animation_folder:str, warp_sfx_file:str, travel_time:float, max_speed:float):
