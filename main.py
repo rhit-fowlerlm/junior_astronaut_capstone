@@ -28,7 +28,7 @@ if platform.system() == "Windows":
     base_path = "C:\\Users\\fowlerlm\\OneDrive - Rose-Hulman Institute of Technology\\Documents\\_Capstone\\Code\\junior_astronaut_capstone\\"
 
 spacecraft = Spacecraft(os.path.join(base_path, "Photos", "Planets"), os.path.join(base_path, "Photos", "WarpTrails001_frames"), os.path.join(base_path, "Sounds", "SFX", "warp_woosh.wav"), 2, 0.2)
-asteroid = Asteroid(os.path.join(base_path, "Photos", "Asteroids"), os.path.join(base_path, "Photos", "Explosion") ["Asteroid1.png"])
+asteroid = Asteroid(os.path.join(base_path, "Photos", "Asteroids"), os.path.join(base_path, "Photos", "Explosion"), ["Asteroid1.png"])
 inputs = Inputs()
 soundboard = Soundboard(os.path.join(base_path, "Sounds"))
 
