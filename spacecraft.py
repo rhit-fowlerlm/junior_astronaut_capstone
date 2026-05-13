@@ -63,10 +63,10 @@ class Spacecraft:
     def change_planets_out_of_bounds(self):
         
         if self.curr_planet_idx == 0:
-            self.curr_planet_idx += 1
+            self.target_planet_idx = self.curr_planet_idx + 1
             return
         if self.curr_planet_idx == len(self.planet_names) - 1:
-            self.curr_planet_idx -= 1
+            self.target_planet_idx = self.target_planet_idx - 1
             return
         
         cos_next = self.get_cos_from_vector_to_planet(self.curr_planet_idx+1)
