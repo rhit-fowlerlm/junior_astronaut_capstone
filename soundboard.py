@@ -166,8 +166,7 @@ class Soundboard:
         self.__launch.start_launch()
 
     def abort_launch(self):
-        if not self.__launch.playing():
-            self.__launch.abort_launch()
+        self.__launch.abort_launch()
 
     def stir(self):
         if not self.__launch.playing():
