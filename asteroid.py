@@ -69,7 +69,7 @@ class Asteroid:
         self.__asteroid_datas.append(new_asteroid)
 
     def destroy(self):
-        i = random.randint(len(self.__asteroid_datas))
+        i = random.randrange(0, len(self.__asteroid_datas))
         self.__asteroid_datas[i].is_exploding = True
         self.__asteroid_datas[i].explosion_start = datetime.now()
 
