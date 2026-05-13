@@ -25,6 +25,16 @@ class Inputs:
         for p in ports:
             if p.description is not None and "arduino" in p.description.lower():
                 device = p.device
+            if p.manufacturer is not None and "arduino" in p.manufacturer.lower():
+                device = p.device
+            if p.product is not None and "arduino" in p.product.lower():
+                device = p.device
+            if p.name is not None and "arduino" in p.name.lower():
+                device = p.device
+            if p.hwid is not None and "arduino" in p.hwid.lower():
+                device = p.device
+            if p.interface is not None and "arduino" in p.interface.lower():
+                device = p.device
 
         if device is None:
             print("ERROR: No arduino found", len(ports), "ports seen")
@@ -69,13 +79,3 @@ class Inputs:
         
         if cmd.startswith("SFX"):
             self.audio.audio_cmds.append(cmd)
-        
-
-if __name__ == "__main__":
-    inputs = Inputs()
-    
-    try:
-        while True:
-            inputs.update()
-    except:
-        inputs.close()
