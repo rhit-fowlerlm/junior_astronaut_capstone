@@ -45,9 +45,9 @@ class Inputs:
         self.planet_encoder = PlanetEncoderInput()
         self.audio = AudioInput()
 
-    def update(self):
-        lines = self.__ser.readlines()
-        for line in lines:
+    def update(self):       
+        while self.__ser.in_waiting:
+            line = self.__ser.readline()
             self.__read_command(line)
             print(line)
 
