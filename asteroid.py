@@ -113,7 +113,7 @@ class Asteroid:
                     dt = (datetime.now() - astr.explosion_start).total_seconds()
                     frame = np.floor(self.__num_explosion_frames * dt / self.__explosion_duration)
                     if frame < self.__num_explosion_frames:
-                        display_fullscreen(self.__explosion_frames[frame], screen, astr.x, astr.y, astr.scale)
+                        display_fullscreen(self.__explosion_frames[int(frame)], screen, astr.x, astr.y, astr.scale)
 
 
         new_aster_array = []
