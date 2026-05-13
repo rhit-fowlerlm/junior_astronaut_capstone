@@ -54,6 +54,9 @@ class Inputs:
 
     def update(self):
         self.audio.audio_cmds = []
+        self.asteroid.create = False
+        self.asteroid.destroy = False
+        self.asteroid.super_destroy = False
 
         while self.__ser.in_waiting:
             line = self.__ser.readline().decode('utf-8', errors='ignore')
@@ -90,10 +93,10 @@ class Inputs:
 
         if cmd.startswith("ASTEROID"):
             if "CREATE" in cmd:
-                self.asteroid.create = False
+                self.asteroid.create = True
             if "SINGLE_DESTROY" in cmd:
-                self.asteroid.destroy = False
+                self.asteroid.destroy = True
             if "SUPER_DESTROY" in cmd:
-                self.asteroid.super_destroy = False
+                self.asteroid.super_destroy = True
 
         
