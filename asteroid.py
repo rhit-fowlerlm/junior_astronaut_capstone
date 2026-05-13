@@ -69,9 +69,10 @@ class Asteroid:
         self.__asteroid_datas.append(new_asteroid)
 
     def destroy(self):
-        i = random.randrange(0, len(self.__asteroid_datas))
-        self.__asteroid_datas[i].is_exploding = True
-        self.__asteroid_datas[i].explosion_start = datetime.now()
+        if len(self.__asteroid_datas) > 0:
+            i = random.randrange(0, len(self.__asteroid_datas))
+            self.__asteroid_datas[i].is_exploding = True
+            self.__asteroid_datas[i].explosion_start = datetime.now()
 
     def destroy_all(self):
         for i in range(len(self.__asteroid_datas)):
@@ -81,10 +82,10 @@ class Asteroid:
     def update(self, screen:pygame.Surface, tick:float, inputs:AsteroidInput):
         if inputs.create:
             self.create()
-        if inputs.destroy:
-            self.destroy()
-        if inputs.super_destroy:
-            self.destroy_all()
+        # if inputs.destroy:
+        #     self.destroy()
+        # if inputs.super_destroy:
+        #     self.destroy_all()
 
         ws, hs = screen.get_size()
         for i in range(len(self.__asteroid_datas)):
