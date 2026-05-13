@@ -158,7 +158,8 @@ class Soundboard:
         self.__data_upload = SFXDataUpload(sfx_path)
 
     def random_historical(self):
-        self.__random_historical.play()
+        if not self.__launch.playing() and not self.__stir.playing():
+            self.__random_historical.play()
 
     def launch(self):
         self.__random_historical.stop()
@@ -169,7 +170,7 @@ class Soundboard:
         self.__launch.abort_launch()
 
     def stir(self):
-        if not self.__launch.playing():
+        if not self.__launch.playing() and not self.__random_historical.playing():
             self.__stir.stir()
 
     def data1(self):
