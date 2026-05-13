@@ -34,6 +34,13 @@ soundboard = Soundboard(os.path.join(base_path, "Sounds"))
 
 p = "earth"
 
+font = pygame.font.SysFont("Arial" , 18 , bold = True)
+
+def fps_counter():
+    fps = str(int(clock.get_fps()))
+    fps_t = font.render(fps , 1, pygame.Color("RED"))
+    screen.blit(fps_t,(0,0))
+
 while running:
     # Update current time
     # poll for events
@@ -86,6 +93,8 @@ while running:
     asteroid.update(screen, tick)
 
     soundboard.update(inputs.audio, inputs.joystick)
+
+    fps_counter()
 
     #smooth_screen(screen, 1)
 

@@ -27,7 +27,6 @@ class Warp:
         self.__t = 0
         self.__travel_time = travel_time
         self.__max_speed = max_speed
-        self.__surf = None
         
     def start(self):
         if self.__warping == 0:
@@ -51,13 +50,12 @@ class Warp:
             scale = 0
         self.__warp.update(self.__max_speed * scale + 0.1, tick)
         if self.__warping == 0:
-            self.__surf = pygame.Surface((1,1))
-            self.__surf.set_alpha(0)
+            return
         else:
             if self.__warping != 2:
                 self.__t += tick
-            self.__surf = self.__warp.get_surf()
-            self.__surf.set_alpha(min(max(round(255 * scale), 0), 255))
+            surf = self.__warp.get_surf()
+            surf.set_alpha(min(max(round(255 * scale), 0), 255))
             if self.__warping == 1:
                 if self.__t > self.__travel_time/2:
                     self.__t = self.__travel_time/2
@@ -66,4 +64,4 @@ class Warp:
                 if self.__t > self.__travel_time:
                     self.__warping = 0
         
-        display_fullscreen(self.__surf, screen, 0, 0, 1)
+        display_fullscreen(surf, screen, 0, 0, 1)
