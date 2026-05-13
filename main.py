@@ -46,16 +46,12 @@ while running:
     # poll for events
     tick = clock.get_time() * 1e-3
 
-    inputs.update()
+    # inputs.update()
 
     for event in pygame.event.get():
         # If quit button pressed, quit game
         if event.type == pygame.QUIT:
             running = False
-
-        inputs.joystick.x = 0
-        inputs.joystick.y = 0
-        inputs.joystick.z = 0
         
         # If escape button pressed, quit game
         if event.type == pygame.KEYDOWN:
@@ -68,17 +64,17 @@ while running:
                 soundboard.stir()
                 pass
             if event.key == pygame.K_UP:
-                inputs.joystick.y += 1
+                inputs.joystick.y = 1
             if event.key == pygame.K_DOWN:
-                inputs.joystick.y -= 1
+                inputs.joystick.y = 1
             if event.key == pygame.K_RIGHT:
-                inputs.joystick.x += 1
+                inputs.joystick.x = 1
             if event.key == pygame.K_LEFT:
-                inputs.joystick.x -= 1
+                inputs.joystick.x = 1
             if event.key == pygame.K_PAGEUP:
-                inputs.joystick.z += 1
+                inputs.joystick.z = 1
             if event.key == pygame.K_PAGEDOWN:
-                inputs.joystick.z -= 1
+                inputs.joystick.z = 1
 
 
     if inputs.planet_encoder.update_flag:

@@ -33,10 +33,6 @@ class Planets:
         for key in planets_file:
             path = os.path.join(photos_folder_path, planets_file[key])
             self.__planets[key] = pygame.image.load(path).convert()
-    
-        
-    def go_to_random(self):
-        self.go_to(random.choice(list(self.__planets)))
 
     def display(self, screen:pygame.Surface, planet:str, x:float, y:float, scale:float):
         display_fullscreen(self.__planets[planet], screen, x, y, scale)
