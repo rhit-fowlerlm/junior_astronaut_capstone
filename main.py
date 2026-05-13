@@ -39,6 +39,8 @@ while running:
     # poll for events
     tick = clock.get_time() * 1e-3
 
+    inputs.update()
+
     for event in pygame.event.get():
         # If quit button pressed, quit game
         if event.type == pygame.QUIT:
