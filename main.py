@@ -105,6 +105,6 @@ while running:
     # Display onto screen
     pygame.display.flip()
     
-    t += clock.tick(25) * 1e-3
+    t += clock.tick(120) * 1e-3
     
 pygame.quit()
