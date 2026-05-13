@@ -48,9 +48,9 @@ class Inputs:
     def update(self):
         self.audio.audio_cmds = []
 
-        # while self.__ser.in_waiting:
-        #     line = self.__ser.readline().decode('utf-8', errors='ignore')
-        #     self.__read_command(line)
+        while self.__ser.in_waiting:
+            line = self.__ser.readline().decode('utf-8', errors='ignore')
+            self.__read_command(line)
 
         
 
