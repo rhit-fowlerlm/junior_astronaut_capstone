@@ -44,7 +44,7 @@ class Asteroid:
         self.__explosion_frames = []
         self.__num_explosion_frames = 16
         for i in range(self.__num_explosion_frames):
-            self.__explosion_frames.append(pygame.image.load(os.path.join(explosion_folder_path, f"{i}.png")).convert())
+            self.__explosion_frames.append(pygame.image.load(os.path.join(explosion_folder_path, f"{i}.png")).convert_alpha())
         self.__explosion_duration = 0.5
 
     def create(self):
