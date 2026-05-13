@@ -85,7 +85,7 @@ while running:
 
     spacecraft.update(screen, inputs.joystick, tick)
 
-    asteroid.update(screen, tick)
+    asteroid.update(screen, tick, inputs.asteroid)
 
     soundboard.update(inputs.audio, inputs.joystick)
 
