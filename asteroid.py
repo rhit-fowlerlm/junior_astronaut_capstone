@@ -82,6 +82,7 @@ class Asteroid:
     def update(self, screen:pygame.Surface, tick:float, inputs:AsteroidInput):
         if inputs.create:
             self.create()
+            print("Create")
         # if inputs.destroy:
         #     self.destroy()
         # if inputs.super_destroy:
