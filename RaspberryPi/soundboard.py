@@ -70,13 +70,13 @@ class SFXTones:
             self.__sounds.append(pygame.mixer.Sound(wave_array))
 
     def low(self):
-        self.__sounds[0].play(loops=-1, maxtime=250)
+        self.__sounds[0].play(maxtime=500, fade_ms=25)
     
     def middle(self):
-        self.__sounds[0].play(loops=-1, maxtime=250)
+        self.__sounds[0].play(maxtime=500, fade_ms=25)
 
     def high(self):
-        self.__sounds[0].play(loops=-1, maxtime=250)
+        self.__sounds[0].play(maxtime=500, fade_ms=25)
 
 class SFXRandom:
 
