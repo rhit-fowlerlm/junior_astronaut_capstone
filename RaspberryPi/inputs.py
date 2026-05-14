@@ -102,7 +102,7 @@ class Inputs:
         if cmd.startswith("PLANET"):
             planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
             for i, p in enumerate(planets):
-                if p in cmd.lower() or i in cmd:
+                if p in cmd.lower() or str(i) in cmd:
                     self.planet_encoder.planet = i
                     self.planet_encoder.update_flag = True
         
