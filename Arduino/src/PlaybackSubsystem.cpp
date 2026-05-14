@@ -30,6 +30,7 @@ void PlaybackSubsystem::update(){
 
     if(millis() - this->last_press_ms > this->time_until_playback_start_ms && this->playback_idx < 0){
         this->playback_idx = 0;
+        this->playback_start_ms = millis();
     }
 
     if(this->playback_idx < 0){

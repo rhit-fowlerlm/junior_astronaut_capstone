@@ -62,7 +62,7 @@ class SFXOxygenTank:
 class SFXTones:
     def __init__(self):
         self.__duration = 0.1
-        frequencies = [220, 277.18, 329.63]
+        frequencies = [220, 277, 330]
 
         self.__sounds:list[pygame.mixer.Sound] = []
         for frequency in frequencies:
@@ -70,13 +70,13 @@ class SFXTones:
             self.__sounds.append(pygame.mixer.Sound(wave_array))
 
     def low(self):
-        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
+        self.__sounds[0].play(loops=-1, maxtime=250)
     
     def middle(self):
-        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
+        self.__sounds[0].play(loops=-1, maxtime=250)
 
     def high(self):
-        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
+        self.__sounds[0].play(loops=-1, maxtime=250)
 
 class SFXRandom:
 
