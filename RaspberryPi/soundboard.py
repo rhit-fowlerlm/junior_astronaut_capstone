@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import numpy as np
 from inputs import AudioInput, JoystickInput
 
 class SFXLaunch:
@@ -57,6 +58,25 @@ class SFXOxygenTank:
         self.__o2_stir.stop()
         self.__boom.stop()
         self.__houston.stop()
+
+class SFXTones:
+    def __init__(self):
+        self.__duration = 0.1
+        frequencies = [220, 277.18, 329.63]
+
+        self.__sounds:list[pygame.mixer.Sound] = []
+        for frequency in frequencies:
+            wave_array = np.array([int(32767.0 * np.sin(2.0 * np.pi * frequency * t / 44100.0)) for t in range(44100)], dtype=np.int16)
+            self.__sounds.append(pygame.mixer.Sound(wave_array))
+
+    def low(self):
+        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
+    
+    def middle(self):
+        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
+
+    def high(self):
+        self.__sounds[0].play(loops=-1, maxtime=int(self.__duration*1000))
 
 class SFXRandom:
 
@@ -156,6 +176,7 @@ class Soundboard:
         self.__stir = SFXOxygenTank(sfx_path, special_historical_path)
         self.__thruster = SFXThruster(sfx_path)
         self.__data_upload = SFXDataUpload(sfx_path)
+        self.__tones = SFXTones()
 
     def random_historical(self):
         if not self.__launch.playing() and not self.__stir.playing() and not self.__random_sci_fi.playing():
@@ -187,6 +208,15 @@ class Soundboard:
     def data_send(self):
         self.__data_upload.play_path_send()
 
+    def tone_low(self):
+        self.__tones.low()
+
+    def tone_middle(self):
+        self.__tones.middle()
+
+    def tone_high(self):
+        self.__tones.high()
+
     def update(self, audio_inputs:AudioInput, joystick_input:JoystickInput):
         for cmd in audio_inputs.audio_cmds:
             self.__process_cmd(cmd)
@@ -210,4 +240,10 @@ class Soundboard:
             self.data2()
         if "DATA_SEND" in cmd:
             self.data_send()
+        if "TONE_LOW" in cmd:
+            self.tone_low()
+        if "TONE_MIDDLE" in cmd:
+            self.tone_middle()
+        if "TONE_HIGH" in cmd:
+            self.tone_high()
         

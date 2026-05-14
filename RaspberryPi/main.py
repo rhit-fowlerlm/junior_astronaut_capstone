@@ -60,7 +60,9 @@ while running:
             if event.key == pygame.K_SPACE:
                 # warp.start()
                 asteroid.create()
-                inputs.audio.audio_cmds.append("SFX STIR")
+                inputs.audio.audio_cmds.append("SFX TONE_LOW")
+                # inputs.audio.audio_cmds.append("SFX TONE_MIDDLE")
+                # inputs.audio.audio_cmds.append("SFX TONE_HIGH")
                 pass
             if event.key == pygame.K_UP:
                 inputs.joystick.y = 1
