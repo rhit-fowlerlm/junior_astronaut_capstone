@@ -7,12 +7,23 @@ SevenSegmentDisplay::SevenSegmentDisplay()
 
 int SevenSegmentDisplay::begin(TwoWire *wire, const uint8_t ledAddress)
 {
+    this->active = false;
+
     this->pWire = wire;
     this->ledAddress = ledAddress >> 1; 
     this->pWire->begin();
-    if(this->i2cdetect() != 0){
-        return -1;
+
+    uint64_t start_time = millis();
+
+    while(this->i2cdetect() != 0){
+        if(millis() - start_time > 5000){
+            return -1;
+        }
+        delay(500);
     }
+
+    this->active = true;
+
     this->i2cWriteCmd(this->CMD_HT16K33_OSCON);
     this->on();
     this->setBrightness(14);
@@ -76,25 +87,29 @@ void SevenSegmentDisplay::setBrightness(const uint8_t brightnessValue)
 
 void SevenSegmentDisplay::i2cWriteCmd(const uint8_t cmd)
 {
-  pWire->beginTransmission(this->ledAddress);
-  pWire->write(cmd);
-  pWire->endTransmission();
+    if(this->active){
+        pWire->beginTransmission(this->ledAddress);
+        pWire->write(cmd);
+        pWire->endTransmission();
+    }
 }
 
 void SevenSegmentDisplay::i2cWriteLights(const uint8_t reg, const uint8_t data)
 {
-  pWire->beginTransmission(this->ledAddress);
-  pWire->write(reg*2);
-  pWire->write(data);
-  pWire->endTransmission();
+    if(this->active){
+        pWire->beginTransmission(this->ledAddress);
+        pWire->write(reg*2);
+        pWire->write(data);
+        pWire->endTransmission();
+    }
 }
 
 int SevenSegmentDisplay::i2cdetect()
 {
-  pWire->beginTransmission(this->ledAddress);
-  if(pWire->endTransmission() == 0)
-  {
-      return  0;
-  }
-  return -1;
+    pWire->beginTransmission(this->ledAddress);
+    if(pWire->endTransmission() == 0)
+    {
+        return 0;
+    }
+    return -1;
 }

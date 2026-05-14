@@ -5,11 +5,7 @@ LaunchSubsystem::LaunchSubsystem(){
 }
 
 void LaunchSubsystem::begin(uint8_t display_address, uint8_t button_led_pin, uint8_t button_pin){
-    while(this->display.begin(&Wire, display_address)){
-        Serial.print("Not found 7 segment at ");
-        Serial.println(display_address, HEX);
-        delay(1000);
-    }
+    this->display.begin(&Wire, display_address);
     this->launch_button.begin(button_led_pin, button_pin);
 }
 

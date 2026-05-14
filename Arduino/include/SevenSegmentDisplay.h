@@ -110,6 +110,8 @@ class SevenSegmentDisplay{
         const uint8_t CMD_HT16K33_FLASHONES   = 0x85;  ///< Set the mode to flash at 1Hz
         const uint8_t CMD_HT16K33_FLASHHALFS  = 0x83;  ///< Set the mode to flash at 2Hz
         const uint8_t CMD_HT16K33_STOPFLASH   = 0x81;  ///< Flash end
+
+        bool active = false;
 };
 
 #endif

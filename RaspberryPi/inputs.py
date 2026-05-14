@@ -47,7 +47,10 @@ class Inputs:
         
         self.__ser = None
         if device is not None:
-            self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
+            try:
+                self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
+            except:
+                pass
 
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
@@ -62,7 +65,11 @@ class Inputs:
 
         if self.__ser is not None:
             while self.__ser.in_waiting:
-                line = self.__ser.readline().decode('utf-8', errors='ignore')
+                line = ""
+                try:
+                    line = self.__ser.readline().decode('utf-8', errors='ignore')
+                except:
+                    pass
                 self.__read_command(line)
 
         
