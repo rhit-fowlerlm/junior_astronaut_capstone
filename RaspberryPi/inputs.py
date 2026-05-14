@@ -26,36 +26,41 @@ class AsteroidInput:
 
 class Inputs:
     def __init__(self):
-        ports = comports(include_links=True)
-        device = None
-        for p in ports:
-            if p.description is not None and "arduino" in p.description.lower():
-                device = p.device
-            if p.manufacturer is not None and "arduino" in p.manufacturer.lower():
-                device = p.device
-            if p.product is not None and "arduino" in p.product.lower():
-                device = p.device
-            if p.name is not None and "arduino" in p.name.lower():
-                device = p.device
-            if p.hwid is not None and "arduino" in p.hwid.lower():
-                device = p.device
-            if p.interface is not None and "arduino" in p.interface.lower():
-                device = p.device
-
-        if device is None:
-            print("ERROR: No arduino found", len(ports), "ports seen")
-        
         self.__ser = None
-        if device is not None:
-            try:
-                self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
-            except:
-                pass
+        self.search_and_connect()
+        
 
         self.joystick = JoystickInput()
         self.planet_encoder = PlanetEncoderInput()
         self.audio = AudioInput()
         self.asteroid = AsteroidInput()
+
+    def search_and_connect(self):
+        if self.__ser is None:
+            ports = comports(include_links=True)
+            device = None
+            for p in ports:
+                if p.description is not None and "arduino" in p.description.lower():
+                    device = p.device
+                if p.manufacturer is not None and "arduino" in p.manufacturer.lower():
+                    device = p.device
+                if p.product is not None and "arduino" in p.product.lower():
+                    device = p.device
+                if p.name is not None and "arduino" in p.name.lower():
+                    device = p.device
+                if p.hwid is not None and "arduino" in p.hwid.lower():
+                    device = p.device
+                if p.interface is not None and "arduino" in p.interface.lower():
+                    device = p.device
+
+            if device is None:
+                print("ERROR: No arduino found", len(ports), "ports seen")
+            
+            if device is not None:
+                try:
+                    self.__ser = serial.Serial(device, baudrate=115200, timeout=0)
+                except:
+                    pass
 
     def update(self):
         self.audio.audio_cmds = []
@@ -71,6 +76,8 @@ class Inputs:
                 except:
                     pass
                 self.__read_command(line)
+        else:
+            self.search_and_connect()
 
         
 

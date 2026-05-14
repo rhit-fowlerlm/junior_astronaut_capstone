@@ -62,14 +62,14 @@ void PlaybackSubsystem::update(){
             }
         }
 
-        if(this->playback_idx == this->history_size || this->history[this->playback_idx] == 0){
+        if(this->playback_idx == 255 || this->history[this->playback_idx] == 0){
             this->reset();
         }
     }
 }
 
 void PlaybackSubsystem::write(uint8_t val){
-    if(this->write_idx < this->history_size && this->playback_idx < 0){
+    if(this->write_idx < 255 && this->playback_idx < 0){
         this->last_press_ms = millis();
         this->history[this->write_idx] = val;
         this->write_idx++;

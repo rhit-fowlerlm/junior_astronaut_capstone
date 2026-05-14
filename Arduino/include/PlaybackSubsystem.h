@@ -25,7 +25,7 @@ class PlaybackSubsystem{
         unsigned long playback_start_ms = 0;
 
         
-        uint8_t history[256];
+        uint8_t history[255];
         int32_t playback_idx = -1;
         int32_t write_idx = 0;
 
