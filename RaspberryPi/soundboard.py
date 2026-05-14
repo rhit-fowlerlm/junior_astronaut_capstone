@@ -30,7 +30,7 @@ class SFXOxygenTank:
         self.__stir_duration = 3
         self.__stirring = False
         self.__booming = False
-        self.problem_probability = 0.5
+        self.problem_probability = 0.05
 
     def playing(self):
         return self.__o2_stir.get_num_channels() > 0 or self.__houston.get_num_channels() > 0 or self.__boom.get_num_channels() > 0
@@ -158,7 +158,7 @@ class Soundboard:
         self.__data_upload = SFXDataUpload(sfx_path)
 
     def random_historical(self):
-        if not self.__launch.playing() and not self.__stir.playing() and self.__random_sci_fi.playing():
+        if not self.__launch.playing() and not self.__stir.playing() and not self.__random_sci_fi.playing():
             self.__random_historical.play()
 
     def random_scifi(self):
@@ -175,7 +175,7 @@ class Soundboard:
         self.__launch.abort_launch()
 
     def stir(self):
-        if not self.__launch.playing() and not self.__random_historical.playing() and self.__random_sci_fi.playing():
+        if not self.__launch.playing() and not self.__random_historical.playing() and not self.__random_sci_fi.playing():
             self.__stir.stir()
 
     def data1(self):

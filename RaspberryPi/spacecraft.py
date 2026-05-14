@@ -13,13 +13,13 @@ class Spacecraft:
         self.x = 0
         self.y = 0
         self.z = 1
-        self.speed_xy = 1e-1
-        self.speed_z = 1e-1
+        self.speed_xy = 1e-2
+        self.speed_z = 1e-2
         self.curr_planet_idx = 2
         self.target_planet_idx = 2
         self.planet_names = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
 
-        self.R = 0.1
+        self.R = 1
         self.k = 0.2
 
     def set_planet(self, target_planet_idx):
