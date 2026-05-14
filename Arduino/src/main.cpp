@@ -2,7 +2,7 @@
 #include "LedButton.h"
 #include "Switch.h"
 #include "LimitSwitch.h"
-#include "MassSwitchingPlanetLimitSwitches.h"
+#include "PlanetSelectionSubsystem.h"
 #include "PowerSubsystem.h"
 #include "LaunchSubsystem.h"
 #include "DataSubsystem.h"
@@ -98,9 +98,9 @@ constexpr uint8_t matrix34_led = A5;
 constexpr uint8_t matrix34_but = 39;
 
 // Switches
-constexpr uint8_t mass_switching_bit0_pin = 0;
-constexpr uint8_t mass_switching_bit1_pin = 0;
-constexpr uint8_t mass_switching_bit2_pin = 0;
+constexpr uint8_t mass_switching_bit0_pin = 16;
+constexpr uint8_t mass_switching_bit1_pin = 17;
+constexpr uint8_t mass_switching_bit2_pin = 19;
 
 // Limit Switches
 constexpr uint8_t power_sw1_pin = 41;
@@ -126,7 +126,7 @@ constexpr uint8_t launch_display_addr = 0xE0;
 // ------Classes------
 
 // Mass Switching
-//MassSwitchingPlanetLimitSwitches mass_switching = MassSwitchingPlanetLimitSwitches();
+PlanetSelectionSubsystem planet_selection_subsystem = PlanetSelectionSubsystem();
 
 // Power Subsystem
 PowerSubsystem power_subsystem = PowerSubsystem();
@@ -185,13 +185,8 @@ void begin(){
   asteroid_subsystem.begin(asteroid1_led, asteroid1_but, asteroid2_led, asteroid2_but, asteroid3_led, asteroid3_but);
   // Playback Subsystem
   playback_subsystem.begin(medbay1_led, medbay1_but, medbay2_led, medbay2_but, medbay3_led, medbay3_but);
-  // Mass Switching Subsystem
-  // mass_switching
-
-  // Limit Switches
-
-  // Mass Switching
-  // mass_switching.begin(mass_switching_bit0_pin, mass_switching_bit1_pin, mass_switching_bit2_pin);
+  // Planet Selection Subsystem
+  planet_selection_subsystem.begin(mass_switching_bit0_pin, mass_switching_bit1_pin, mass_switching_bit2_pin);
 }
 
 // --------Update-------
@@ -211,6 +206,6 @@ void update(){
   asteroid_subsystem.update();
   // Playback Subsystem
   playback_subsystem.update();
-
-  // Limit Switches
+  // Planet Selection Subsystem
+  planet_selection_subsystem.update();
 }

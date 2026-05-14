@@ -1,20 +1,22 @@
-#ifndef MASS_SWITCHING_PLANET_LIMIT_SWITCHES_H
-#define MASS_SWITCHING_PLANET_LIMIT_SWITCHES_H
+#ifndef PLANET_SELECTION_SUBSYSTEM_H
+#define PLANET_SELECTION_SUBSYSTEM_H
 #include "Arduino.h"
 #include "LimitSwitch.h"
 
-class MassSwitchingPlanetLimitSwitches{
+class PlanetSelectionSubsystem{
     public:
-        MassSwitchingPlanetLimitSwitches();
+        PlanetSelectionSubsystem();
         void begin(uint8_t bit0_pin, uint8_t bit1_pin, uint8_t bit2_pin);
         uint8_t planet();
         void update();
     private:
         const String planet_cmd = "PLANET ";
-        const uint8_t index_to_planet[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+        const uint8_t index_to_planet[8] = {7, 5, 6, 4, 3, 1, 2, 0};
         LimitSwitch bit0 = LimitSwitch();
         LimitSwitch bit1 = LimitSwitch();
         LimitSwitch bit2 = LimitSwitch();
+
+        bool has_changed();
 };
 
 #endif
