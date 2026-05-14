@@ -73,10 +73,10 @@ class SFXTones:
         self.__sounds[0].play(maxtime=500, fade_ms=25)
     
     def middle(self):
-        self.__sounds[0].play(maxtime=500, fade_ms=25)
+        self.__sounds[1].play(maxtime=500, fade_ms=25)
 
     def high(self):
-        self.__sounds[0].play(maxtime=500, fade_ms=25)
+        self.__sounds[2].play(maxtime=500, fade_ms=25)
 
 class SFXRandom:
 

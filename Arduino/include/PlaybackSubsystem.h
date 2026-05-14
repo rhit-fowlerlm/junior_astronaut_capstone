@@ -19,15 +19,17 @@ class PlaybackSubsystem{
         void set_led(uint8_t val);
 
         const uint32_t time_until_playback_start_ms = 3000;
-        const uint32_t playback_frame_length = 250;
+        const uint32_t playback_frame_length = 1000;
 
         unsigned long last_press_ms = 0;
         unsigned long playback_start_ms = 0;
 
-
-        uint8_t history[255];
+        
+        uint8_t history[256];
         int32_t playback_idx = -1;
-        uint32_t write_idx = 0;
+        int32_t write_idx = 0;
+
+        const int32_t history_size = sizeof(history) / sizeof(history[0]);
 };
 
 #endif

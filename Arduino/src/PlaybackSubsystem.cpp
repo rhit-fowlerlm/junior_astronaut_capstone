@@ -53,7 +53,7 @@ void PlaybackSubsystem::update(){
                         Serial.println("SFX TONE_LOW");
                         break;
                     case 2:
-                    Serial.println("SFX TONE_MIDDLE");
+                        Serial.println("SFX TONE_MIDDLE");
                         break;
                     case 3:
                         Serial.println("SFX TONE_HIGH");
@@ -62,14 +62,14 @@ void PlaybackSubsystem::update(){
             }
         }
 
-        if(this->playback_idx == 255 || this->history[this->playback_idx] == 0){
+        if(this->playback_idx == this->history_size || this->history[this->playback_idx] == 0){
             this->reset();
         }
     }
 }
 
 void PlaybackSubsystem::write(uint8_t val){
-    if(this->write_idx < 255 && this->playback_idx < 0){
+    if(this->write_idx < this->history_size && this->playback_idx < 0){
         this->last_press_ms = millis();
         this->history[this->write_idx] = val;
         this->write_idx++;
@@ -77,7 +77,7 @@ void PlaybackSubsystem::write(uint8_t val){
 }
 
 void PlaybackSubsystem::reset(){
-    for(uint8_t i = 0; i < 255; i++){
+    for(uint8_t i = 0; i < this->history_size; i++){
         this->history[i] = 0;
     }
     this->write_idx = 0;
