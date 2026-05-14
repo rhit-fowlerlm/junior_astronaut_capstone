@@ -112,29 +112,29 @@ void ButtonMatrixSubsystem::handle_button_presses(){
     // Column 3
 
     if(this->matrix13.button_just_pressed()){
-
+        this->mode = MODE_IN_SPIRAL;
     }
 
     if(this->matrix23.button_just_pressed()){
-
+        this->mode = MODE_DIAMOND_SIDEWAYS;
     }
 
     if(this->matrix33.button_just_pressed()){
-
+        this->mode = MODE_ALT_QUARTERS;
     }
 
     // Column 4
 
     if(this->matrix14.button_just_pressed()){
-
+        this->mode = MODE_OUT_SPIRAL;
     }
 
     if(this->matrix24.button_just_pressed()){
-
+        this->mode = MODE_DIAMONDS_UP;
     }
 
     if(this->matrix34.button_just_pressed()){
-
+        this->mode = MODE_ALT_THIRDS;
     }
 }
 

@@ -14,14 +14,17 @@ void PlaybackSubsystem::update(){
     this->update_components();
 
     if(this->b1.button_just_pressed()){
+        Serial.println("SFX TONE_LOW");
         this->write(1);
     }
 
     if(this->b2.button_just_pressed()){
+        Serial.println("SFX TONE_MIDDLE");
         this->write(2);
     }
 
     if(this->b3.button_just_pressed()){
+        Serial.println("SFX TONE_HIGH");
         this->write(3);
     }
 
@@ -43,6 +46,19 @@ void PlaybackSubsystem::update(){
         if(millis() - this->playback_start_ms > this->playback_frame_length){
             this->playback_idx++;
             this->playback_start_ms = millis();
+            if(this->playback_idx < 255){
+                switch(this->history[this->playback_idx]){
+                    case 1:
+                        Serial.println("SFX TONE_LOW");
+                        break;
+                    case 2:
+                    Serial.println("SFX TONE_MIDDLE");
+                        break;
+                    case 3:
+                        Serial.println("SFX TONE_HIGH");
+                        break;
+                }
+            }
         }
 
         if(this->playback_idx == 255 || this->history[this->playback_idx] == 0){
