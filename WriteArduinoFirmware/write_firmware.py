@@ -24,7 +24,7 @@ def run():
         print("No device found")
         return
     
-    cmd = f"avrdude -c arduino -P {device} -b 115200 -p atmega2560 -D -U flash:w:{firmware_file}:i"
+    cmd = f"avrdude -c arduino -P {device} -c stk500v2 -b 115200 -p atmega2560 -D -U flash:w:{firmware_file}:i"
     os.system(cmd)
 
 
