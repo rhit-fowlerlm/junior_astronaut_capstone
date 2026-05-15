@@ -1,7 +1,7 @@
 from serial.tools.list_ports import comports
 import os
 
-firmware_file = "~/junior_astronaut_capstone/Arduino/.pio/build/megaatmega2560/firmware.hex"
+firmware_file = "/home/space-station/junior_astronaut_capstone/Arduino/.pio/build/megaatmega2560/firmware.hex"
 
 def run():
     ports = comports(include_links=True)
