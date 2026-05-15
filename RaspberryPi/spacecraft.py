@@ -13,8 +13,8 @@ class Spacecraft:
         self.x = 0
         self.y = 0
         self.z = 1
-        self.speed_xy = 1e-2
-        self.speed_z = 1e-2
+        self.speed_xy = 1.5e-2
+        self.speed_z = 1.5e-2
         self.curr_planet_idx = 2
         self.target_planet_idx = 2
         self.planet_names = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
@@ -27,9 +27,9 @@ class Spacecraft:
 
     def update(self, screen:pygame.Surface, joystick:JoystickInput, tick:float):
         if not self.__warp.is_warping():
-            dx = -joystick.x - self.k * self.x / self.z
-            dy =  joystick.y - self.k * self.y / self.z
-            dz =  joystick.z - self.k * (self.z - 1)
+            dx =  joystick.x - self.k * self.x / self.z
+            dy = -joystick.y - self.k * self.y / self.z
+            dz = -joystick.z - self.k * (self.z - 1)
 
 
             self.x += dx * self.speed_xy * tick / self.z
